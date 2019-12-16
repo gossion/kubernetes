@@ -74,6 +74,13 @@ const (
 	managedByAzureLabel        = "kubernetes.azure.com/managed"
 )
 
+const (
+	PreConfiguredBackendPoolLoadBalancerTypesNone     = ""
+	PreConfiguredBackendPoolLoadBalancerTypesInteral  = "internal"
+	PreConfiguredBackendPoolLoadBalancerTypesExternal = "external"
+	PreConfiguredBackendPoolLoadBalancerTypesAll      = "all"
+)
+
 var (
 	// Master nodes are not added to standard load balancer by default.
 	defaultExcludeMasterFromStandardLB = true
@@ -174,6 +181,13 @@ type Config struct {
 	// LoadBalancerResourceGroup determines the specific resource group of the load balancer user want to use, working
 	// with LoadBalancerName
 	LoadBalancerResourceGroup string `json:"loadBalancerResourceGroup,omitempty" yaml:"loadBalancerResourceGroup,omitempty"`
+	// The load balaner type which has been pre-configured
+	// Could be:
+	//   "": the default value means exactly with today
+	//   "internal": for internal LoadBalancer
+	//   "external": for external LoadBalancer
+	//   "all": for both internal and external LoadBalancer
+	PreConfiguredBackendPoolLoadBalancerTypes string `json:"preConfiguredBackendPoolLoadBalancerTypes,omitempty" yaml:"preConfiguredBackendPoolLoadBalancerTypes,omitempty"`
 }
 
 var _ cloudprovider.Interface = (*Cloud)(nil)

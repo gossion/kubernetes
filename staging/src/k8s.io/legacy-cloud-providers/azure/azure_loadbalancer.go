@@ -978,6 +978,22 @@ func (az *Cloud) reconcileLoadBalancer(clusterName string, service *v1.Service, 
 		vmSetName := az.mapLoadBalancerNameToVMSet(lbName, clusterName)
 		// Etag would be changed when updating backend pools, so invalidate lbCache after it.
 		defer az.lbCache.Delete(lbName)
+
+		switch az.PreConfiguredBackendPoolLoadBalancerTypes {
+		case PreConfiguredBackendPoolLoadBalancerTypesAll:
+			klog.V(2).Infof("will not run EnsureHostsInPool for service(%s): lb(%s) because the lb backend pool was pre-configured", serviceName, lbName)
+			return lb, nil
+		case PreConfiguredBackendPoolLoadBalancerTypesInteral:
+			if isInternal {
+				klog.V(2).Infof("will not run EnsureHostsInPool for service(%s): lb(%s) because the lb backend pool was pre-configured", serviceName, lbName)
+				return lb, nil
+			}
+		case PreConfiguredBackendPoolLoadBalancerTypesExternal:
+			if !isInternal {
+				klog.V(2).Infof("will not run EnsureHostsInPool for service(%s): lb(%s) because the lb backend pool was pre-configured", serviceName, lbName)
+				return lb, nil
+			}
+		}
 		err := az.vmSet.EnsureHostsInPool(service, nodes, lbBackendPoolID, vmSetName, isInternal)
 		if err != nil {
 			return nil, err
