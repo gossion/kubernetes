@@ -181,9 +181,9 @@ type Config struct {
 	// LoadBalancerResourceGroup determines the specific resource group of the load balancer user want to use, working
 	// with LoadBalancerName
 	LoadBalancerResourceGroup string `json:"loadBalancerResourceGroup,omitempty" yaml:"loadBalancerResourceGroup,omitempty"`
-	// The load balaner type which has been pre-configured
-	// Could be:
-	//   "": the default value means exactly with today
+	// PreConfiguredBackendPoolLoadBalancerTypes determines whether the LoadBalancer BackendPool has been preconfigured.
+	// Candidate values are:
+	//   "": exactly with today (not pre-configured for any LBs)
 	//   "internal": for internal LoadBalancer
 	//   "external": for external LoadBalancer
 	//   "all": for both internal and external LoadBalancer
