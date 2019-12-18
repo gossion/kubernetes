@@ -75,10 +75,14 @@ const (
 )
 
 const (
-	PreConfiguredBackendPoolLoadBalancerTypesNone     = ""
-	PreConfiguredBackendPoolLoadBalancerTypesInteral  = "internal"
+	// PreConfiguredBackendPoolLoadBalancerTypesNone means that the load balancers are not pre-configured
+	PreConfiguredBackendPoolLoadBalancerTypesNone = ""
+	// PreConfiguredBackendPoolLoadBalancerTypesInteral means that the `internal` load balancers are pre-configured
+	PreConfiguredBackendPoolLoadBalancerTypesInteral = "internal"
+	// PreConfiguredBackendPoolLoadBalancerTypesExternal means that the `external` load balancers are pre-configured
 	PreConfiguredBackendPoolLoadBalancerTypesExternal = "external"
-	PreConfiguredBackendPoolLoadBalancerTypesAll      = "all"
+	// PreConfiguredBackendPoolLoadBalancerTypesAll means that all load balancers are pre-configured
+	PreConfiguredBackendPoolLoadBalancerTypesAll = "all"
 )
 
 var (
